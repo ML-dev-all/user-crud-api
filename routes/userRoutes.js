@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 });
 
 // Buscar um usuário pelo ID
-router.get("/users/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params; // Obtém o ID dos parâmetros da URL
 
   try {
