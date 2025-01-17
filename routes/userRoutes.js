@@ -22,16 +22,29 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Atualizar um usuário
+// Rota para editar um usuário
 router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, email, age } = req.body;
+
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!user) return res.status(404).json({ error: "Usuário não encontrado" });
-    res.status(200).json(user);
+    // Verifica se o usuário existe
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado." });
+    }
+
+    // Atualiza os campos fornecidos
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.age = age || user.age;
+
+    // Salva as alterações no banco de dados
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Erro ao atualizar usuário:", error);
+    res.status(500).json({ message: "Erro ao atualizar usuário." });
   }
 });
 
