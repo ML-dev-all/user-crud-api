@@ -14,7 +14,10 @@ const cors = require("cors");
 // Configurar CORS com permissões específicas
 app.use(
   cors({
-    origin: "http://localhost:3000", // Endereço do frontend
+    origin: [
+      "http://localhost:3000",
+      "https://jovial-florentine-8df070.netlify.app",
+    ], // Endereço do frontend
   })
 );
 
