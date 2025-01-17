@@ -9,6 +9,15 @@ const PORT = process.env.PORT || 3000;
 // Middleware para processar JSON
 app.use(express.json());
 
+const cors = require("cors");
+
+// Configurar CORS com permissões específicas
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Endereço do frontend
+  })
+);
+
 // Conexão com o MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
