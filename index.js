@@ -17,7 +17,8 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://jovial-florentine-8df070.netlify.app",
-    ], // Endereço do frontend
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"], // Endereço do frontend
   })
 );
 
