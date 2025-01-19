@@ -34,13 +34,5 @@ mongoose
 // Rotas
 app.use("/api/users", require("./routes/userRoutes"));
 
-// Middleware para servir os arquivos estáticos do frontend
-app.use(express.static(path.join(__dirname, "user-crud-frontend/build")));
-
-// Redirecionar todas as rotas desconhecidas para o React Router
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "user-crud-frontend", "index.html"));
-});
-
 // Iniciar o servidor
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
