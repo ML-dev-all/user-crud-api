@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 });
 
 //Dadospara gráfico dinamico
-router.get("/api/users/users-by-age", async (req, res) => {
+router.get("/users-by-age", async (req, res) => {
   try {
     const ageGroups = await User.aggregate([
       {
