@@ -2,28 +2,6 @@ const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
 
-//Dadospara gráfico dinamico
-router.get("/api/users-by-age", async (req, res) => {
-  try {
-    const ageGroups = await User.aggregate([
-      {
-        $bucket: {
-          groupBy: "$age",
-          boundaries: [20, 30, 40, 50, 60],
-          default: "60+",
-          output: {
-            count: { $sum: 1 },
-          },
-        },
-      },
-    ]);
-    res.json(ageGroups);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Erro ao agrupar usuários por idade." });
-  }
-});
-
 // Criar um novo usuário
 router.post("/", async (req, res) => {
   try {
@@ -41,6 +19,28 @@ router.get("/", async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+//Dadospara gráfico dinamico
+router.get("/api/users/users-by-age", async (req, res) => {
+  try {
+    const ageGroups = await User.aggregate([
+      {
+        $bucket: {
+          groupBy: "$age",
+          boundaries: [20, 30, 40, 50, 60],
+          default: "60+",
+          output: {
+            count: { $sum: 1 },
+          },
+        },
+      },
+    ]);
+    res.json(ageGroups);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao agrupar usuários por idade." });
   }
 });
 
