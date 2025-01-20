@@ -29,7 +29,7 @@ router.get("/users-by-age", async (req, res) => {
       {
         $bucket: {
           groupBy: "$age",
-          boundaries: [20, 30, 40, 50, 60],
+          boundaries: [10, 20, 30, 40, 50, 60],
           default: "60+",
           output: {
             count: { $sum: 1 },
