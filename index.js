@@ -11,6 +11,14 @@ app.use(express.json());
 
 const cors = require("cors");
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://www.gstatic.com"
+  );
+  next();
+});
+
 // Configurar CORS com permissões específicas
 app.use(
   cors({
